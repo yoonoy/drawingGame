@@ -1,0 +1,16 @@
+{
+  "name": "sketch-and-sabotage",
+  "version": "1.0.0",
+  "description": "Multiplayer drawing + social deduction game (10-15 players)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

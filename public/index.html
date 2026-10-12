@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sketch &amp; Sabotage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- JOIN SCREEN -->
+  <section id="join">
+    <h1>Sketch <span class="amp">&amp;</span> Sabotage</h1>
+    <p class="tagline">Draw it. Guess it. Catch the saboteur.</p>
+    <div class="joinBox">
+      <label for="name">Your name</label>
+      <input id="name" maxlength="16" autocomplete="off" placeholder="Aiganysh">
+      <button id="createBtn" class="primary">Create a room</button>
+      <div class="or">or join your friends</div>
+      <label for="code">Room code</label>
+      <input id="code" maxlength="4" autocomplete="off" placeholder="ABCD">
+      <button id="joinBtn">Join room</button>
+      <p id="joinErr" class="err" role="alert"></p>
+    </div>
+  </section>
+
+  <!-- GAME SCREEN -->
+  <main id="game" hidden>
+    <header class="top">
+      <div class="brand">Sketch <span class="amp">&amp;</span> Sabotage</div>
+      <div id="roomInfo"></div>
+      <div id="timer" aria-live="off">--</div>
+    </header>
+
+    <div id="roleBanner" class="banner"></div>
+
+    <div class="layout">
+      <section class="stage">
+        <div id="wordBox"></div>
+
+        <div class="canvasWrap">
+          <canvas id="board" width="800" height="500"></canvas>
+
+          <div id="lobby" class="overlay" hidden>
+            <h2>Waiting room</h2>
+            <p>Room code: <strong id="lobbyCode" class="bigCode"></strong></p>
+            <p id="lobbyCount"></p>
+            <div id="hostControls">
+              <label for="minP">Players needed to start</label>
+              <input id="minP" type="number" min="2" max="15" value="10">
+              <label for="maxP">Max players in room</label>
+              <input id="maxP" type="number" min="2" max="15" value="15">
+              <label for="rounds">Rounds</label>
+              <select id="rounds">
+                <option>3</option><option selected>5</option><option>8</option><option>10</option>
+              </select>
+              <button id="startBtn" class="primary">Start game</button>
+            </div>
+            <p id="lobbyWait"></p>
+          </div>
+
+          <div id="vote" class="overlay" hidden>
+            <h2>Who is the saboteur?</h2>
+            <p id="voteNote"></p>
+            <div id="voteList" class="voteList"></div>
+          </div>
+
+          <div id="reveal" class="overlay" hidden>
+            <h2 id="revealTitle"></h2>
+            <p id="revealBody"></p>
+          </div>
+
+          <div id="end" class="overlay" hidden>
+            <h2>Game over</h2>
+            <ol id="finalBoard" class="finalBoard"></ol>
+            <button id="againBtn" class="primary" hidden>Play again</button>
+            <p id="againWait" hidden>Waiting for the host to start a new game.</p>
+          </div>
+        </div>
+
+        <div id="tools" hidden>
+          <div id="swatches"></div>
+          <label class="sizeLbl">Brush
+            <input id="size" type="range" min="2" max="30" value="6">
+          </label>
+          <button id="clearBtn">Clear drawing</button>
+        </div>
+
+        <form id="hintForm" hidden>
+          <input id="hintInput" maxlength="40" autocomplete="off" placeholder="Anonymous hint (everyone will see it)">
+          <button>Send hint</button>
+          <span id="hintNote"></span>
+        </form>
+      </section>
+
+      <aside class="side">
+        <ul id="players"></ul>
+        <div id="chat" aria-live="polite"></div>
+        <form id="chatForm">
+          <input id="chatInput" maxlength="100" autocomplete="off" placeholder="Type your guess here">
+          <button>Send</button>
+        </form>
+      </aside>
+    </div>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>
